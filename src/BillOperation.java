@@ -67,7 +67,9 @@ public class BillOperation
         } // while (line != null)
         br.close();
         fr.close();
-        return users;
+        ArrayList<Data> temp;
+        temp=doSelectionSort(users);
+        return temp;
         
     } // displayAllRecord
     
@@ -124,11 +126,13 @@ public class BillOperation
         return user;
     } //findRecord
     
-    public void addAllRecordInFile(ArrayList <Data> users) throws IOException
+    public void addAllRecordInFile(ArrayList <Data> temp) throws IOException
     {
         File fileName = new File("ElectricAcc.txt");
         FileWriter fw = new FileWriter(fileName);
         PrintWriter pw = new PrintWriter(fw);
+        ArrayList<Data> users;
+        users=doSelectionSort(temp);
         
         for (int i=0; i < users.size(); i++)
         {
@@ -173,4 +177,20 @@ public class BillOperation
         return sum;
     }
     
-} // class StaffOperation
+    public ArrayList<Data> doSelectionSort(ArrayList<Data> arr) {
+        for (int i = 0; i < arr.size(); i++) {
+            // find position of smallest num between (i + 1)th element and last element
+            int pos = i;
+            for (int j = i; j < arr.size(); j++) {
+                if (arr.get(j).getaccnumber() < arr.get(pos).getaccnumber())
+                    pos = j;
+            }
+            // Swap min (smallest num) to current position on array
+            Data min = arr.get(pos);
+            arr.set(pos, arr.get(i));
+            arr.set(i, min);
+            //printOut(i + 1, arr);
+        }
+        return arr;
+    }
+} // class billoperation

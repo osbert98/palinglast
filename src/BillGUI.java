@@ -344,7 +344,7 @@ public class BillGUI extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         Data user;
-        BillOperation staffOperation = new BillOperation();
+        BillOperation billoperation = new BillOperation();
         int accnumber=Integer.parseInt(tfaccnum.getText());
         String billdate = tfBillDate.getText(); // get data in String from textfield staff No and convert into integer
         String name = tfName.getText(); // get data in String from textfield name
@@ -366,7 +366,7 @@ public class BillGUI extends javax.swing.JFrame {
         // store a record into an object
         user = new Data(billdate,accnumber, name, address, arrears, previousmeter, currentmeter,totalunit,currentcharge,totalbill);    
         try {
-            staffOperation.addRecord(user); // add one record into text file
+            billoperation.addRecord(user); // add one record into text file
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -395,7 +395,7 @@ public class BillGUI extends javax.swing.JFrame {
     private void btnDisplayAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayAllActionPerformed
         // TODO add your handling code here:
         ArrayList <Data> usrs;
-        BillOperation staffOperation = new BillOperation();
+        BillOperation billoperation = new BillOperation();
         
         taDisplay.setText("CUSTOMER DETAILS\n");
         taDisplay.append("\nBILLDATE\tACCNUM \tNAME \tADDRESS \tARREARS \tPREVIOUS \tCURRENT \tTOTALUNIT \tCURRENTCHARGE \tTOTALBILL \n");
@@ -405,7 +405,7 @@ public class BillGUI extends javax.swing.JFrame {
         try 
         {
             
-            usrs = staffOperation.displayAllRecord(); //  usrs = users
+            usrs = billoperation.displayAllRecord(); //  usrs = users
             for (int i=0; i<usrs.size(); i++)
             {
                 String billdate = String.valueOf(usrs.get(i).getbilldate());
@@ -440,17 +440,17 @@ public class BillGUI extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        BillOperation staffOperation = new BillOperation();
+        BillOperation billoperation = new BillOperation();
         
         int accnum1=Integer.parseInt(JOptionPane.showInputDialog("Input Account Number"));
         
-        //int staffNo = Integer.parseInt(tfBillDate.getText());
+        //int accnum1 = Integer.parseInt(tfBillDate.getText());
         System.out.println("search accnum = "+accnum1);
         
         Data record = null;
         try
         {    
-            record = staffOperation.findRecord(accnum1);
+            record = billoperation.findRecord(accnum1);
         }catch (IOException ex)
         {
             System.out.println(ex.getMessage());
@@ -500,29 +500,29 @@ public class BillGUI extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        BillOperation staffOperation = new BillOperation();
+        BillOperation billoperation = new BillOperation();
         ArrayList <Data> usrs = new ArrayList <Data>();
         Data usr = null;
         
-        int staffNo = Integer.parseInt(tfaccnum.getText());
-        System.out.println("search staffno = "+staffNo);
+        int accnum1 = Integer.parseInt(tfaccnum.getText());
+        System.out.println("search accnum1 = "+accnum1);
         
         try
         {
-            usrs = staffOperation.readAllRecordFromFile(); // read all records in text file and store it in arraylist
+            usrs = billoperation.readAllRecordFromFile(); // read all records in text file and store it in arraylist
             for(int i=0; i<usrs.size(); i++)
             {
-                if (staffNo == usrs.get(i).getaccnumber())
+                if (accnum1 == usrs.get(i).getaccnumber())
                 {
                     usr = usrs.get(i);
                     usrs.remove(i);
-                    staffOperation.addAllRecordInFile(usrs);
+                    billoperation.addAllRecordInFile(usrs);
                     JOptionPane.showMessageDialog(null, "The record of \n"+usr.getaccnumber()+"\n"+usr.getname()+"\nhas been deleted successfully");
                     taDisplay.setText("The record of "+usr.getaccnumber()+"\t"+usr.getname()+"has been deleted successfully");
                 }
             }
             if (usr == null)
-                JOptionPane.showMessageDialog(null, "The record of "+staffNo+" is not found");
+                JOptionPane.showMessageDialog(null, "The record of "+accnum1+" is not found");
         }
         catch(IOException ex)
         {
@@ -534,7 +534,7 @@ public class BillGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         Data user;
         
-        BillOperation staffOperation = new BillOperation();
+        BillOperation billoperation = new BillOperation();
         
         String billdate = tfBillDate.getText();
         int accnumber = Integer.parseInt(tfaccnum.getText());
@@ -548,26 +548,21 @@ public class BillGUI extends javax.swing.JFrame {
        tfTotalUnit.setText(String.valueOf(totalunit));   //convert to String
        
        double arrears = Double.parseDouble(tfArrears.getText());   //sambung code fauzan
-       double currentcharge = staffOperation.calctariff(totalunit);
+       double currentcharge = billoperation.calctariff(totalunit);
        tfCurrentCharge.setText(String.valueOf(df.format(currentcharge)));
        double totalbill = arrears + currentcharge;
        tfTotalBill.setText(String.valueOf(df.format(totalbill)));
         
        
        
-       
-        //String state = String.valueOf(cbState.getSelectedItem());
-        double salary = Double.parseDouble(tfCurrentMeter.getText());
-        double allowance = Double.parseDouble(tfTotalUnit.getText());
-        double deduction = Double.parseDouble(tfCurrentCharge.getText());
-        double netSalary = salary + allowance - deduction;
+      
         
         user = new Data(billdate,accnumber, name, address, arrears, previousmeter, currentmeter,totalunit,currentcharge,totalbill);
         
         ArrayList <Data> usrs = new ArrayList <Data>();
         try
         {
-            usrs = staffOperation.readAllRecordFromFile();
+            usrs = billoperation.readAllRecordFromFile();
         }
         catch (IOException ex)
         {
@@ -582,7 +577,7 @@ public class BillGUI extends javax.swing.JFrame {
         
         try
         {
-            staffOperation.addAllRecordInFile(usrs);
+            billoperation.addAllRecordInFile(usrs);
             JOptionPane.showMessageDialog(null, "The record of "+accnumber+" has been updated successfully");
         }
         catch (IOException ex)
