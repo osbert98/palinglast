@@ -1,0 +1,27 @@
+1111
+Mohd zabidin Husin
+Male
+taman Jaya, Arau
+Perlis
+4000.0
+300.0
+200.0
+4100.0
+5555
+Sulaiman Hassan
+Male
+Taman Sawi, Kulim
+Kedah
+6000.0
+1000.0
+500.0
+6500.0
+12
+fauzan
+Female
+sabah
+Kedah
+5000.0
+2000.0
+200.0
+6800.0
