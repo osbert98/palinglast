@@ -385,7 +385,10 @@ public class StaffGUI extends javax.swing.JFrame {
         tfTotalUnit.setText("");
         tfCurrentCharge.setText("");
         tfTotalBill.setText("");
+        tfaccnum.setText("");
+        tfArrears.setText("");
         taDisplay.setText("");
+        
         tblModel.setRowCount(0); // row in the table will be zero
     }//GEN-LAST:event_btnResetActionPerformed
 
@@ -414,8 +417,8 @@ public class StaffGUI extends javax.swing.JFrame {
                 String previousmeter = String.valueOf(emps.get(i).getpreviousmeter());
                 String currentmeter = String.valueOf(emps.get(i).getcurrentmeter());
                 String totalunit = String.valueOf(emps.get(i).gettotalunit());
-                String currentcharge = String.valueOf(emps.get(i).getcurrentcharge()); 
-                String totalbill = String.valueOf(emps.get(i).gettotalbill());
+                String currentcharge = String.valueOf(df.format(emps.get(i).getcurrentcharge())); 
+                String totalbill = String.valueOf(df.format(emps.get(i).gettotalbill()));
                 
                 taDisplay.append(billdate+"\t"+accnum+"\t"+name+"\t"+address+"\t"+arrears+"\t"+previousmeter+"\t"+currentmeter+"\t"+totalunit+"\t"+currentcharge+"\t\t"+totalbill+"\n");
                 System.out.printf("%-6s %-25s %-10s %-25s %-10s %8.2f %8.2f  %8.2f  %8.2f  %8.2f \n",emps.get(i).getbilldate(),emps.get(i).getaccnumber(),emps.get(i).getname(),emps.get(i).getaddress(), 
@@ -438,7 +441,9 @@ public class StaffGUI extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         StaffOperation staffOperation = new StaffOperation();
+        
         int accnum1=Integer.parseInt(JOptionPane.showInputDialog("Input Account Number"));
+        
         //int staffNo = Integer.parseInt(tfBillDate.getText());
         System.out.println("search accnum = "+accnum1);
         
@@ -471,8 +476,8 @@ public class StaffGUI extends javax.swing.JFrame {
             tfCurrentMeter.setText(String.valueOf(currentmeter));
             tfPrevious.setText(String.valueOf(previousmeter));
             tfTotalUnit.setText(String.valueOf(totalunit));
-            tfCurrentCharge.setText(String.valueOf(currentcharge));
-            tfTotalBill.setText(String.valueOf(totalbill));
+            tfCurrentCharge.setText(String.valueOf(df.format(currentcharge)));
+            tfTotalBill.setText(String.valueOf(df.format(totalbill)));
             
      
             
