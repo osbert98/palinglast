@@ -9,35 +9,35 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class StaffOperation 
+public class BillOperation 
 {
     
-    public void addRecord(Staff emp) throws IOException 
-    {  // emp = employee
+    public void addRecord(Data user) throws IOException 
+    {  // user = user
         File fileName = new File("ElectricAcc.txt");
         FileWriter fw = new FileWriter(fileName, true);
         PrintWriter pw = new PrintWriter(fw);
         
-        pw.println(emp.getbilldate());
-        pw.println(emp.getaccnumber());
-        pw.println(emp.getname());
-        pw.println(emp.getaddress());
-        pw.println(emp.getarrears());
-        pw.println(emp.getpreviousmeter());
-        pw.println(emp.getcurrentmeter());
-        pw.println(emp.gettotalunit());
-        pw.println(emp.getcurrentcharge());
-        pw.println(emp.gettotalbill());
+        pw.println(user.getbilldate());
+        pw.println(user.getaccnumber());
+        pw.println(user.getname());
+        pw.println(user.getaddress());
+        pw.println(user.getarrears());
+        pw.println(user.getpreviousmeter());
+        pw.println(user.getcurrentmeter());
+        pw.println(user.gettotalunit());
+        pw.println(user.getcurrentcharge());
+        pw.println(user.gettotalbill());
           
         pw.close();
         fw.close();
         
     } // addRecord
     
-    public ArrayList <Staff>  displayAllRecord() throws FileNotFoundException, IOException
+    public ArrayList <Data>  displayAllRecord() throws FileNotFoundException, IOException
     {
-        ArrayList <Staff> employees = new ArrayList<Staff>();
-        Staff emp;
+        ArrayList <Data> users = new ArrayList<Data>();
+        Data user;
         
         File fileName = new File("ElectricAcc.txt");
         FileReader fr = new FileReader(fileName);
@@ -61,20 +61,20 @@ public class StaffOperation
             double currentcharge = Double.parseDouble(br.readLine()); // baris ke-9
             double totalbill = Double.parseDouble(br.readLine()); // baris ke-10
             
-            emp = new Staff(billdate,accnum,  name, address, arrears,previousmeter,currentmeter, totalunit, currentcharge,totalbill);
-            employees.add(emp);  // store into arraylist
+            user = new Data(billdate,accnum,  name, address, arrears,previousmeter,currentmeter, totalunit, currentcharge,totalbill);
+            users.add(user);  // store into arraylist
             line = br.readLine();
         } // while (line != null)
         br.close();
         fr.close();
-        return employees;
+        return users;
         
     } // displayAllRecord
     
-    public ArrayList <Staff>  readAllRecordFromFile() throws FileNotFoundException, IOException
+    public ArrayList <Data>  readAllRecordFromFile() throws FileNotFoundException, IOException
     {
-        ArrayList <Staff> employees = new ArrayList<Staff>();
-        Staff emp;
+        ArrayList <Data> users = new ArrayList<Data>();
+        Data user;
         
         File fileName = new File("ElectricAcc.txt");
         FileReader fr = new FileReader(fileName);
@@ -98,50 +98,50 @@ public class StaffOperation
             double currentcharge = Double.parseDouble(br.readLine()); // baris ke-9
             double totalbill = Double.parseDouble(br.readLine()); // baris ke-10
             
-             emp = new Staff(billdate,accnum,  name, address, arrears,previousmeter,currentmeter, totalunit, currentcharge,totalbill);
-            employees.add(emp);
+             user = new Data(billdate,accnum,  name, address, arrears,previousmeter,currentmeter, totalunit, currentcharge,totalbill);
+            users.add(user);
             line = br.readLine();
         } // while (line != null)
         br.close();
         fr.close();
-        return employees;
+        return users;
     } // readAllRecordFromFile
     
-    public Staff findRecord(int Accnum) throws FileNotFoundException, IOException
+    public Data findRecord(int Accnum) throws FileNotFoundException, IOException
     {
-        Staff emp = null;
-        ArrayList <Staff> employeeList = readAllRecordFromFile();
+        Data user = null;
+        ArrayList <Data> usersList = readAllRecordFromFile();
         
-        for (int i=0; i < employeeList.size(); i++)
+        for (int i=0; i < usersList.size(); i++)
         {
-            if(Accnum == employeeList.get(i).getaccnumber())
+            if(Accnum == usersList.get(i).getaccnumber())
             {
-                emp = employeeList.get(i);
+                user = usersList.get(i);
                 System.out.println("Record is found");
             }
                 
         }
-        return emp;
+        return user;
     } //findRecord
     
-    public void addAllRecordInFile(ArrayList <Staff> employees) throws IOException
+    public void addAllRecordInFile(ArrayList <Data> users) throws IOException
     {
         File fileName = new File("ElectricAcc.txt");
         FileWriter fw = new FileWriter(fileName);
         PrintWriter pw = new PrintWriter(fw);
         
-        for (int i=0; i < employees.size(); i++)
+        for (int i=0; i < users.size(); i++)
         {
-            pw.println(employees.get(i).getbilldate());
-            pw.println(employees.get(i).getaccnumber());
-            pw.println(employees.get(i).getname());
-            pw.println(employees.get(i).getaddress());
-            pw.println(employees.get(i).getarrears());
-            pw.println(employees.get(i).getpreviousmeter());
-            pw.println(employees.get(i).getcurrentmeter());
-            pw.println(employees.get(i).gettotalunit());
-            pw.println(employees.get(i).getcurrentcharge());
-            pw.println(employees.get(i).gettotalbill());
+            pw.println(users.get(i).getbilldate());
+            pw.println(users.get(i).getaccnumber());
+            pw.println(users.get(i).getname());
+            pw.println(users.get(i).getaddress());
+            pw.println(users.get(i).getarrears());
+            pw.println(users.get(i).getpreviousmeter());
+            pw.println(users.get(i).getcurrentmeter());
+            pw.println(users.get(i).gettotalunit());
+            pw.println(users.get(i).getcurrentcharge());
+            pw.println(users.get(i).gettotalbill());
 
         }
         pw.close();

@@ -1,5 +1,5 @@
 
-public class Staff 
+public class Data 
 {
     private String billdate;
     private int accnumber;
@@ -14,7 +14,7 @@ public class Staff
     private double totalbill;
 
 
-    public Staff(String billdate,int accnumber, String name,  String address, double arrears, double previousmeter, double currentmeter, double totalunit, double currentcharge, double totalbill) {
+    public Data(String billdate,int accnumber, String name,  String address, double arrears, double previousmeter, double currentmeter, double totalunit, double currentcharge, double totalbill) {
        
         this.billdate = billdate;
         this.accnumber = accnumber;
