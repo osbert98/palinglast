@@ -2,6 +2,8 @@
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,7 +57,6 @@ public class BillGUI extends javax.swing.JFrame {
         tfTotalBill = new javax.swing.JTextField();
         btnCalculate = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
-        btnSearch = new javax.swing.JButton();
         btnDisplayAll = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -69,6 +70,7 @@ public class BillGUI extends javax.swing.JFrame {
         tfArrears = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         tfaccnum = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,13 +111,6 @@ public class BillGUI extends javax.swing.JFrame {
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
-            }
-        });
-
-        btnSearch.setText("Search");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
             }
         });
 
@@ -174,6 +169,13 @@ public class BillGUI extends javax.swing.JFrame {
         tfaccnum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfaccnumActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("BinarySearch");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -244,9 +246,9 @@ public class BillGUI extends javax.swing.JFrame {
                         .addComponent(btnReset)
                         .addGap(18, 18, 18)
                         .addComponent(btnDisplayAll)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnSearch)
-                        .addGap(32, 32, 32)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(10, 10, 10)
                         .addComponent(btnUpdate)
                         .addGap(35, 35, 35)
                         .addComponent(btnDelete)))
@@ -308,9 +310,9 @@ public class BillGUI extends javax.swing.JFrame {
                     .addComponent(btnSave)
                     .addComponent(btnReset)
                     .addComponent(btnDisplayAll)
-                    .addComponent(btnSearch)
                     .addComponent(btnUpdate)
-                    .addComponent(btnDelete))
+                    .addComponent(btnDelete)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -442,66 +444,6 @@ public class BillGUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnDisplayAllActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        BillOperation billoperation = new BillOperation();
-        
-        int accnum1=Integer.parseInt(JOptionPane.showInputDialog("Input Account Number"));
-        
-        //int accnum1 = Integer.parseInt(tfBillDate.getText());
-        System.out.println("search accnum = "+accnum1);
-        
-        Data record = null;
-        try
-        {    
-            record = billoperation.findRecord(accnum1);
-        }catch (IOException ex)
-        {
-            System.out.println(ex.getMessage());
-        }
-        if (record != null)
-        {
-            String billdate = record.getbilldate();
-            String name = record.getname();
-            String accnum = String.valueOf(record.getaccnumber());
-            String address = record.getaddress();
-            double arrears = record.getarrears();
-            double previousmeter = record.getpreviousmeter();
-            double currentmeter = record.getcurrentmeter();
-            double totalunit = record.gettotalunit();
-            double currentcharge = record.getcurrentcharge();
-            double totalbill = record.gettotalbill();
-       
-            tfBillDate.setText(billdate);
-            tfaccnum.setText(String.valueOf(accnum));
-            tfName.setText(name);
-            tfAddress.setText(address);
-            tfArrears.setText(String.valueOf(arrears));
-            tfCurrentMeter.setText(String.valueOf(currentmeter));
-            tfPrevious.setText(String.valueOf(previousmeter));
-            tfTotalUnit.setText(String.valueOf(totalunit));
-            tfCurrentCharge.setText(String.valueOf(df.format(currentcharge)));
-            tfTotalBill.setText(String.valueOf(df.format(totalbill)));
-            
-     
-            
-       
-            
-            taDisplay.setText("RECORD\n");
-            taDisplay.append("\nBILLDATE\tACCNUM \tNAME \tADDRESS \tARREARS \tPREVIOUS \tCURRENT \tTOTALUNIT \tCURRENTCHARGE \tTOTALBILL \n");
-            taDisplay.append(billdate+"\t"+accnum+"\t"+name+"\t"+address+"\t"+arrears+"\t"+previousmeter+"\t"+currentmeter+"\t"+totalunit+"\t"+currentcharge+"\t\t"+totalbill+"\n");
-            JOptionPane.showMessageDialog(null, "The record of "+accnum1+" is found successfully");
-        }
-        else // if record == null
-        {
-            JOptionPane.showMessageDialog(null, "The record of "+accnum1+" is not found");
-            taDisplay.setText("The record of staff id = "+accnum1+" is not found");
-        }
-            
-            
-        
-    }//GEN-LAST:event_btnSearchActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
         BillOperation billoperation = new BillOperation();
@@ -602,6 +544,66 @@ public class BillGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfaccnumActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        BillOperation billoperation = new BillOperation();
+        
+        int accnum1=Integer.parseInt(JOptionPane.showInputDialog("Input Account Number"));
+        
+        
+        //int accnum1 = Integer.parseInt(tfBillDate.getText());
+        System.out.println("search accnum = "+accnum1);
+        ArrayList<Data> usr=null;
+        try {
+            usr = billoperation.readAllRecordFromFile();
+        } catch (IOException ex) {
+            Logger.getLogger(BillGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Data record = null;
+        record = billoperation.binarySearch(usr,0,usr.size(),accnum1);
+        if (record != null)
+        {
+            String billdate = record.getbilldate();
+            String name = record.getname();
+            String accnum = String.valueOf(record.getaccnumber());
+            String address = record.getaddress();
+            double arrears = record.getarrears();
+            double previousmeter = record.getpreviousmeter();
+            double currentmeter = record.getcurrentmeter();
+            double totalunit = record.gettotalunit();
+            double currentcharge = record.getcurrentcharge();
+            double totalbill = record.gettotalbill();
+       
+            tfBillDate.setText(billdate);
+            tfaccnum.setText(String.valueOf(accnum));
+            tfName.setText(name);
+            tfAddress.setText(address);
+            tfArrears.setText(String.valueOf(arrears));
+            tfCurrentMeter.setText(String.valueOf(currentmeter));
+            tfPrevious.setText(String.valueOf(previousmeter));
+            tfTotalUnit.setText(String.valueOf(totalunit));
+            tfCurrentCharge.setText(String.valueOf(df.format(currentcharge)));
+            tfTotalBill.setText(String.valueOf(df.format(totalbill)));
+            
+     
+            
+       
+            
+            taDisplay.setText("RECORD\n");
+            taDisplay.append("\nBILLDATE\tACCNUM \tNAME \tADDRESS \tARREARS \tPREVIOUS \tCURRENT \tTOTALUNIT \tCURRENTCHARGE \tTOTALBILL \n");
+            taDisplay.append(billdate+"\t"+accnum+"\t"+name+"\t"+address+"\t"+arrears+"\t"+previousmeter+"\t"+currentmeter+"\t"+totalunit+"\t"+currentcharge+"\t\t"+totalbill+"\n");
+            JOptionPane.showMessageDialog(null, "The record of "+accnum1+" is found successfully");
+        }
+        else // if record == null
+        {
+            JOptionPane.showMessageDialog(null, "The record of "+accnum1+" is not found");
+            taDisplay.setText("The record of staff id = "+accnum1+" is not found");
+        }
+            
+         
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -646,8 +648,8 @@ public class BillGUI extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGender;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
