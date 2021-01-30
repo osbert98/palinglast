@@ -364,7 +364,11 @@ public class BillGUI extends javax.swing.JFrame {
        tfTotalBill.setText(String.valueOf(totalbill));
        
         // store a record into an object
-        user = new Data(billdate,accnumber, name, address, arrears, previousmeter, currentmeter,totalunit,currentcharge,totalbill);    
+        user = new Data(billdate,accnumber, name, address, arrears, previousmeter, currentmeter,totalunit,currentcharge,totalbill);  
+        String [] data={tfBillDate.getText(),tfaccnum.getText(),tfName.getText(),tfAddress.getText(),tfArrears.getText(),tfPrevious.getText(),tfCurrentMeter.getText()
+                        ,tfTotalUnit.getText(),tfCurrentCharge.getText(),tfTotalBill.getText()};
+        tblModel = (DefaultTableModel) tblDisplay.getModel(); 
+        tblModel.addRow(data);
         try {
             billoperation.addRecord(user); // add one record into text file
         } catch (IOException ex) {
@@ -504,7 +508,7 @@ public class BillGUI extends javax.swing.JFrame {
         ArrayList <Data> usrs = new ArrayList <Data>();
         Data usr = null;
         
-        int accnum1 = Integer.parseInt(tfaccnum.getText());
+        int accnum1 = Integer.parseInt(JOptionPane.showInputDialog("Input the Account Number to Delete"));
         System.out.println("search accnum1 = "+accnum1);
         
         try
@@ -524,10 +528,11 @@ public class BillGUI extends javax.swing.JFrame {
             if (usr == null)
                 JOptionPane.showMessageDialog(null, "The record of "+accnum1+" is not found");
         }
+        
         catch(IOException ex)
         {
             System.out.println(ex.getMessage());
-        }
+        }btnDisplayAllActionPerformed(evt);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
