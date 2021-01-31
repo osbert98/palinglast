@@ -108,7 +108,7 @@ public class BillOperation
         fr.close();
         return users;
     } // readAllRecordFromFile
-    
+    /*
     public Data findRecord(int Accnum) throws FileNotFoundException, IOException
     {
         Data user = null;
@@ -124,7 +124,7 @@ public class BillOperation
                 
         }
         return user;
-    } //findRecord
+    } //findRecord*/
     
     public void addAllRecordInFile(ArrayList <Data> temp) throws IOException
     {
@@ -193,4 +193,28 @@ public class BillOperation
         }
         return arr;
     }
+    
+    public Data binarySearch(ArrayList<Data> usr, int first, int last, int key){  
+   int mid = (first + last)/2;  
+   Data temp=null;
+   while( first <= last ){  
+      if ( usr.get(mid).getaccnumber() < key ){  
+        first = mid + 1;     
+      }else if ( usr.get(mid).getaccnumber() == key ){  
+        temp=usr.get(mid);
+        System.out.println("Element is found at index: " + mid);  
+        return temp;
+        //break;  
+      }else{  
+         last = mid - 1;  
+      }  
+      mid = (first + last)/2;  
+   }  
+   if ( first > last ){  
+      System.out.println("Element is not found!");  
+   }  
+   return temp;
+ }  
+ 
+    
 } // class billoperation
