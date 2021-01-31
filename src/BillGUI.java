@@ -625,9 +625,10 @@ public class BillGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int accnum1=Integer.parseInt(JOptionPane.showInputDialog("Input Account Number"));
         BillOperation billoperation = new BillOperation();
         try{
-        int accnum1=Integer.parseInt(JOptionPane.showInputDialog("Input Account Number"));
+        
         
         //int accnum1 = Integer.parseInt(tfBillDate.getText());
         System.out.println("search accnum = "+accnum1);
@@ -681,6 +682,8 @@ public class BillGUI extends javax.swing.JFrame {
             
          }catch(NumberFormatException e1){
         JOptionPane.showMessageDialog(null, "Please Enter The Correct Account Number");
+        }catch(IndexOutOfBoundsException e2){
+        JOptionPane.showMessageDialog(null, "The Account "+accnum1+" Is Not Found");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
